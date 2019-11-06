@@ -1,29 +1,28 @@
 import React from 'react'
 import { View, Text, StyleSheet} from 'react-native'
 import RootNavigator from './screens/MealsNavigation'
-import CategoriesScreen from './screens/CategoriesScreen'
-import CategoryMealsScreen from './screens/CategoryMealsScreen'
-import MealDetailScreen from './screens/MealDetailScreen'
+import { useScreens } from 'react-native-screens'
+import { createStore, combineReducers } from 'redux'
+import mealsReducer from './store/reducers/meals'
+import { Provider } from 'react-redux'
 
+useScreens()
+
+const rootReducer = combineReducers({
+  meals: mealsReducer
+})
+const store = createStore(rootReducer)
+ 
 export default class App extends React.Component {
   render() {
     return(
-      <View style={styles.screen}>
+      <Provider store={store}>
         <RootNavigator />
-      
-
-        </View>
-      
+        </Provider>
     )
   }
 
   }
  
-const styles = StyleSheet.create({
-  screen: {
-      flex: 1,
-      alignItems: 'center',
-      justifyContent: 'center'
-  }
-})
+
  
